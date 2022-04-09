@@ -20,6 +20,7 @@ package grpc
 
 import (
 	"context"
+	logs "github.com/cihub/seelog"
 )
 
 // Invoke sends the RPC request on the wire and returns after response is
@@ -70,5 +71,6 @@ func invoke(ctx context.Context, method string, req, reply interface{}, cc *Clie
 	if err := cs.SendMsg(req); err != nil {
 		return err
 	}
+	logs.Infof("invoke")
 	return cs.RecvMsg(reply)
 }

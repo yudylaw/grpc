@@ -4,6 +4,7 @@ go 1.11
 
 require (
 	github.com/cespare/xxhash v1.1.0
+	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
 	github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403
 	github.com/envoyproxy/go-control-plane v0.9.9-0.20210512163311-63b5d3c536b0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
