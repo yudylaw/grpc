@@ -22,6 +22,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	logs "github.com/cihub/seelog"
 	"io"
 	"math"
 	"net"
@@ -1138,6 +1139,13 @@ func chainUnaryInterceptors(interceptors []UnaryServerInterceptor) UnaryServerIn
 }
 
 func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.Stream, info *serviceInfo, md *MethodDesc, trInfo *traceInfo) (err error) {
+	startTime := time.Now().UnixNano() / 1e6
+	defer func() {
+		//统计server rpc接口耗时
+		cost := time.Now().UnixNano() / 1e6 - startTime
+		logs.Infof("server rpc=%s, cost=%dms", stream.Method(), cost)
+	}()
+
 	sh := s.opts.statsHandler
 	if sh != nil || trInfo != nil || channelz.IsOn() {
 		if channelz.IsOn() {

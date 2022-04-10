@@ -67,9 +67,9 @@ var unaryStreamDesc = &StreamDesc{ServerStreams: false, ClientStreams: false}
 func invoke(ctx context.Context, method string, req, reply interface{}, cc *ClientConn, opts ...CallOption) error {
 	startTime := time.Now().UnixNano() / 1e6
 	defer func() {
-		//统计rpc接口耗时
+		//统计客户端rpc接口耗时
 		cost := time.Now().UnixNano() / 1e6 - startTime
-		logs.Infof("rpc=%s, cost=%dms", method, cost)
+		logs.Infof("client rpc=%s, cost=%dms", method, cost)
 	}()
 	cs, err := newClientStream(ctx, unaryStreamDesc, cc, method, opts...)
 	if err != nil {
